@@ -1,0 +1,49 @@
+[
+    {
+        "category": " asdfasdfasd",
+        "title": ":DDDD",
+        "cover": "",
+        "readTime": {
+            "value": "5",
+            "unit": "123412341"
+        },
+        "author": {
+            "name": "paşa",
+            "avatar": "",
+            "id": "123qweasd"
+        },
+        "content": "HTML",
+        "id": "dd82z15l0lepufh2d",
+        "createdAt": "2023-03-01T15:39:23.557Z",
+        "updatedAt": "2023-03-02T15:27:24.425Z",
+        "coverURL": "https://res.cloudinary.com/dkcuhltxb/image/upload/v1678110722/cld-sample-2.jpg",
+        "comments": [
+            {
+                "bati as": "angora cat sevdalısı",
+                "comment_id": "dd82z1kb4lerbfufs",
+                "createdAt": "2023-03-02T16:23:20.536Z",
+                "updatedAt": "2023-03-02T16:23:20.536Z"
+            }
+        ]
+    },
+    {
+        "category": "testing",
+        "title": "test test :D",
+        "cover": "",
+        "readTime": {
+            "value": "5",
+            "unit": "minutes"
+        },
+        "author": {
+            "name": "Bilbor",
+            "avatar": "",
+            "id": "12345"
+        },
+        "content": "This blogpost is cool!",
+        "id": "dd82z1ii0ler9unuk",
+        "createdAt": "2023-03-02T15:38:52.603Z",
+        "updatedAt": "2023-03-02T15:45:27.970Z",
+        "coverURL": "https://res.cloudinary.com/dkcuhltxb/image/upload/v1678110724/cld-sample-5.jpg",
+        "comments": []
+    }
+]
