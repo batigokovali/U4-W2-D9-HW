@@ -1,5 +1,10 @@
 import PdfPrinter from "pdfmake";
 import imageToBase64 from "image-to-base64";
+import { pipeline } from "stream" // CORE PACKAGE
+import { promisify } from "util" // CORE PACKAGE
+import { readFile } from "fs"
+import { getBlogpostsPDFWritableStream } from "./fs-tools.js";
+
 
 export const getBlogpostPDFReadableStream = async blogpost => {
     // Define font files
@@ -50,4 +55,11 @@ export const getBlogpostPDFReadableStream = async blogpost => {
     pdfReadableStream.end()
 
     return pdfReadableStream
+}
+
+export const asyncPDFGeneration = async blogpost => {
+    const source = getBlogpostPDFReadableStream(blogpost)
+    const destination = getBlogpostsPDFWritableStream("test.pdf")
+    const promiseBasedPipeline = promisify(pipeline)
+    await promiseBasedPipeline(source, destination)
 }

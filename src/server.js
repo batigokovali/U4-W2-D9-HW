@@ -5,15 +5,20 @@ import listEndpoints from "express-list-endpoints"
 import authorsRouter from "./api/authors/index.js"
 import blogpostsRouter from "./api/blogposts/index.js"
 import authorAvatarsRouter from "./api/avatars/index.js"
-import blogpostCoversRouter from "./api/covers/index.js"
+import blogpostFilesRouter from "./api/files/index.js"
 import commentsRouter from "./api/comments/index.js"
+import blogpostCSVRouter from "./api/files/blogpostCSV.js"
 import { genericErrorHandler, badRequestHandler, unauthorizedHandler, notfoundHandler } from "./errorHandlers.js"
 import createHttpError from "http-errors"
+import swaggerUi from "swagger-ui-express"
+import yaml from "yamljs"
+
 
 const server = Express()
 const port = process.env.PORT
 console.log(port)
 const publicFolderPath = join(process.cwd(), "./public")
+const yamlFile = yaml.load(join(process.cwd(), "./src/docs/apiDocs.yml"))
 
 //GLOBAL MIDDLEWARES
 //added this to get rid of undefined bodies in request
@@ -38,9 +43,12 @@ server.use(Express.json())
 //ENDPOINTS
 server.use("/authors", authorsRouter)
 server.use("/authors", authorAvatarsRouter)
+server.use("/blogposts", blogpostCSVRouter)
 server.use("/blogposts", blogpostsRouter)
-server.use("/blogposts", blogpostCoversRouter)
+server.use("/blogposts", blogpostFilesRouter)
 server.use("/blogposts", commentsRouter)
+server.use("/docs", swaggerUi.serve, swaggerUi.setup(yamlFile))
+
 
 //ERROR HANDLERS
 server.use(badRequestHandler) // 400

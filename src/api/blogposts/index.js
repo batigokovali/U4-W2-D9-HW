@@ -4,15 +4,22 @@ import createHttpError from "http-errors";
 import authorsRouter from "../authors/index.js";
 import { checkBlogpostsSchema, triggerBadRequest } from "./validation.js"
 import { getBlogposts, writeBlogposts } from "../../lib/fs-tools.js";
+import { sendEmail } from "../../lib/email-tools.js";
 
 const blogpostsRouter = Express.Router()
 
 blogpostsRouter.post("/", checkBlogpostsSchema, triggerBadRequest, async (req, res, next) => {
-    const newBlogpost = { ...req.body, id: uniqid(), createdAt: new Date(), updatedAt: new Date() }
-    const blogpostsArray = await getBlogposts()
-    blogpostsArray.push(newBlogpost)
-    await writeBlogposts(blogpostsArray)
-    res.status(201).send({ id: newBlogpost.id })
+    try {
+        const newBlogpost = { ...req.body, id: uniqid(), createdAt: new Date(), updatedAt: new Date() }
+        const blogpostsArray = await getBlogposts()
+        blogpostsArray.push(newBlogpost)
+        await writeBlogposts(blogpostsArray)
+        const email = "batigokovali@icloud.com"
+        await sendEmail(email)
+        res.send({ id: newBlogpost.id })
+    } catch (error) {
+        next(error)
+    }
 })
 
 blogpostsRouter.get("/", async (req, res, next) => {
